@@ -44,6 +44,8 @@ const login = async (req, res) => {
     //Extraemos email y password del body
     const { email, password } = req.body;
 
+    console.log(email, password, "controller");
+
     //Buscamos usuario con ese correo en la DB
     const user = await User.findOne({
       email,

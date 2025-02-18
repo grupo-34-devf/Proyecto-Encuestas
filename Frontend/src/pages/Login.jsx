@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const { login } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -21,7 +24,13 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    login({ formData });
+    login(formData)
+      .then(() => {
+        navigate("/profile");
+      })
+      .catch(() => {
+        alert("error login");
+      });
   };
 
   return (
