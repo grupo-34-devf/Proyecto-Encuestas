@@ -8,7 +8,7 @@ dotenv.config();
 const server = http.createServer(api);
 
 server.on("listening", () => {
-  console.info("Server listening on", 8080);
+  console.info("Server listening on", 8081);
 });
 
 server.on("error", (error) => {
@@ -16,4 +16,4 @@ server.on("error", (error) => {
 });
 
 connect();
-server.listen(8080);
+server.listen(8081);

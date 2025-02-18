@@ -90,4 +90,46 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+const profile = async (req, res) => {
+  const token = req.headers["authorization"];
+
+  console.log();
+
+  if (!token) {
+    return res.status(401).json({
+      msg: "Missing token",
+    });
+  }
+
+  try {
+    //Extraemos el secret de las varialbes de entorno para firmar el token
+    const { JWT_SECRET } = process.env;
+
+    //Lanzamos error si no está esa variable
+    if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET missing in .env file");
+    }
+
+    const { userId } = jwt.verify(token, JWT_SECRET, {});
+
+    const user = await User.findById(userId, "-password -_id -__v");
+
+    if (!user) {
+      return res.status(403).json({ msg: "InvalidToken" });
+    }
+
+    return res.json({
+      user,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(403).json({ msg: "InvalidToken" });
+  }
+};
+
+export { register, login, profile };
