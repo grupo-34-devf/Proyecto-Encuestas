@@ -28,8 +28,9 @@ const Login = () => {
       .then(() => {
         navigate("/profile");
       })
-      .catch(() => {
+      .catch((error) => {
         alert("error login");
+        console.error(error);
       });
   };
 

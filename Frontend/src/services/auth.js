@@ -27,8 +27,8 @@ const register = async (
 const login = async (email, password) => {
   try {
     const { data } = await api.post("/auth/login", {
-      email,
-      password,
+      email: email,
+      password: password,
     });
 
     return data.token;

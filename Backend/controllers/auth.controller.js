@@ -44,8 +44,6 @@ const login = async (req, res) => {
     //Extraemos email y password del body
     const { email, password } = req.body;
 
-    console.log(email, password, "controller");
-
     //Buscamos usuario con ese correo en la DB
     const user = await User.findOne({
       email,
@@ -86,6 +84,8 @@ const login = async (req, res) => {
       code: "BadLogin",
     });
   } catch (error) {
+    console.error(error);
+
     return res.status(500).json({
       code: "ServerError",
     });
@@ -99,8 +99,6 @@ const login = async (req, res) => {
  */
 const profile = async (req, res) => {
   const token = req.headers["authorization"];
-
-  console.log();
 
   if (!token) {
     return res.status(401).json({
