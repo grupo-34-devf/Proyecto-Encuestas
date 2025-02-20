@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
  * @param {import("express").Response} res
  */
 const register = async (req, res) => {
+  console.log(req.body);
   try {
     const { birthday, email, firstName, gender, lastName, password } = req.body;
 
@@ -27,7 +28,7 @@ const register = async (req, res) => {
     });
   } catch (error) {
     //si es error causado por correo duplicado, regresar  {status: 409 code DuplicatedUser}
-
+    console.error(error);
     return res.status(500).json({
       code: "ServerError",
     });

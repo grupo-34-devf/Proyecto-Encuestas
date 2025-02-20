@@ -1,13 +1,13 @@
 import api from "./index";
 
-const register = async (
+const register = async ({
   birthday,
   email,
   firstName,
   gender,
   lastName,
-  password
-) => {
+  password,
+}) => {
   try {
     const { data } = await api.post("/auth/register", {
       birthday,

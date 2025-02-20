@@ -1,16 +1,45 @@
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import { useAlert } from "../context/AlertContext";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const { login } = useAuth();
+  const { showAlert } = useAlert();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleMouseUpPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -26,6 +55,7 @@ const Login = () => {
 
     login(formData)
       .then(() => {
+        showAlert("Login satisfactorio", "success");
         navigate("/profile");
       })
       .catch((error) => {
@@ -35,29 +65,63 @@ const Login = () => {
   };
 
   return (
-    <>
-      <form>
-        <label htmlFor="email">Correo</label>
-        <input
+    <Container maxWidth="sm">
+      <Paper
+        elevation={8}
+        sx={{
+          padding: 4,
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+        }}
+      >
+        <Typography variant="h5" component="h2" align="center">
+          Iniciar Sesión
+        </Typography>
+
+        <TextField
+          required
           type="email"
+          label="Correo"
           onChange={handleChange}
           value={formData.email}
           name="email"
         />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          onChange={handleChange}
-          value={formData.password}
-          name="password"
-        />
-        <br />
-        <button type="submit" onClick={handleLogin}>
+
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            onChange={handleChange}
+            value={formData.password}
+            name="password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={
+                    showPassword ? "hide the password" : "display the password"
+                  }
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  onMouseUp={handleMouseUpPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl>
+
+        <Button type="submit" variant="contained" onClick={handleLogin}>
           Login
-        </button>
-      </form>
-    </>
+        </Button>
+      </Paper>
+    </Container>
   );
 };
 
