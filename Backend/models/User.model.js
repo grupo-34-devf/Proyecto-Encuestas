@@ -31,6 +31,11 @@ const userSchema = new Schema({
   gender: {
     type: String,
   },
+  emailVerified: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 export default model("User", userSchema);

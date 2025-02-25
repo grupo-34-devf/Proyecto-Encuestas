@@ -33,8 +33,9 @@ const login = async (email, password) => {
 
     return data.token;
   } catch (error) {
-    console.error(error);
     console.error("Error al hacer login");
+    console.error(error);
+    throw error;
   }
 };
 

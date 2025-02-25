@@ -59,8 +59,14 @@ const Login = () => {
         navigate("/profile");
       })
       .catch((error) => {
-        alert("error login");
-        console.error(error);
+        if (error.response.status == 403) {
+          showAlert("El correo del usuario no ha sido verificado", "warning");
+        } else if (error.response.status == 401) {
+          showAlert("Credenciales inválidas", "error");
+        } else {
+          showAlert("Error al iniciar sesión intenta más tarde", "error");
+          console.error(error);
+        }
       });
   };
 

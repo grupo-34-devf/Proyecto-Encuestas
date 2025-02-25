@@ -56,28 +56,36 @@ const login = async (req, res) => {
       const isPassword = await bcryp.compare(password, user.password);
 
       if (isPassword) {
-        //Extraemos el secret de las varialbes de entorno para firmar el token
-        const { JWT_SECRET } = process.env;
+        // Verificar si el usuario ya verificó su correo
+        if (user.emailVerified) {
+          //Extraemos el secret de las varialbes de entorno para firmar el token
+          const { JWT_SECRET } = process.env;
 
-        //Lanzamos error si no está esa variable
-        if (!JWT_SECRET) {
-          throw new Error("JWT_SECRET missing in .env file");
+          //Lanzamos error si no está esa variable
+          if (!JWT_SECRET) {
+            throw new Error("JWT_SECRET missing in .env file");
+          }
+
+          //Payload para codificar el token
+          const payload = {
+            userId: user.id,
+          };
+
+          //Crear token firmado
+          const token = jwt.sign(payload, JWT_SECRET, {
+            expiresIn: "1h",
+          });
+
+          return res.json({
+            code: "LoginSuccess",
+            token,
+          });
+        } else {
+          // Respondemos 403 si intenta inicar sesión sin correo verificado
+          return res.status(403).json({
+            msg: "Email not verified",
+          });
         }
-
-        //Payload para codificar el token
-        const payload = {
-          userId: user.id,
-        };
-
-        //Crear token firmado
-        const token = jwt.sign(payload, JWT_SECRET, {
-          expiresIn: "1h",
-        });
-
-        return res.json({
-          code: "LoginSuccess",
-          token,
-        });
       }
     }
 
