@@ -1,9 +1,6 @@
 import http from "http";
 import api from "./api.js";
-import dotenv from "dotenv";
 import { connect } from "./database.js";
-
-dotenv.config();
 
 const server = http.createServer(api);
 

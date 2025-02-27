@@ -3,6 +3,7 @@ import bcryp from "bcrypt";
 import jwt from "jsonwebtoken";
 import { sendMail } from "../utils/mail.utils.js";
 import verifyEmialTemplate from "../utils/emails/verifyEmial.template.js";
+import config from "../config.js";
 
 /**
  *
@@ -10,7 +11,6 @@ import verifyEmialTemplate from "../utils/emails/verifyEmial.template.js";
  * @param {import("express").Response} res
  */
 const register = async (req, res) => {
-  console.log(req.body);
   try {
     const { birthday, email, firstName, gender, lastName, password } = req.body;
 
@@ -25,7 +25,7 @@ const register = async (req, res) => {
       password: newPassword,
     });
 
-    const { JWT_SECRET } = process.env;
+    const JWT_SECRET = config.jwtSecret;
 
     //Lanzamos error si no está esa variable
     if (!JWT_SECRET) {
@@ -51,6 +51,7 @@ const register = async (req, res) => {
     if (error.code == 11000) {
       return res.status(409).json({
         msg: "Usuario ya registrado",
+        code: "DuplicatedUser",
       });
     }
 
@@ -86,7 +87,7 @@ const login = async (req, res) => {
         // Verificar si el usuario ya verificó su correo
         if (user.emailVerified) {
           //Extraemos el secret de las varialbes de entorno para firmar el token
-          const { JWT_SECRET } = process.env;
+          const JWT_SECRET = config.jwtSecret;
 
           //Lanzamos error si no está esa variable
           if (!JWT_SECRET) {
@@ -144,7 +145,7 @@ const profile = async (req, res) => {
 
   try {
     //Extraemos el secret de las varialbes de entorno para firmar el token
-    const { JWT_SECRET } = process.env;
+    const JWT_SECRET = config.jwtSecret;
 
     //Lanzamos error si no está esa variable
     if (!JWT_SECRET) {
@@ -187,7 +188,7 @@ const verify = async (req, res) => {
   // Si sí hay token lo verificamos y extraemos el correo que viene dentro
 
   //Extraemos el secret de las varialbes de entorno para firmar el token
-  const { JWT_SECRET } = process.env;
+  const JWT_SECRET = config.jwtSecret;
 
   //Lanzamos error si no está esa variable
   if (!JWT_SECRET) {

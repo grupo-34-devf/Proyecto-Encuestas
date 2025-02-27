@@ -3,9 +3,13 @@ import cors from "cors";
 import authRouter from "./routes/auth.routes.js";
 import morgan from "morgan";
 
+console.log("ENVIRONMENT", process.env.NODE_ENV);
+
 const api = express();
 
-api.use(morgan("tiny"));
+if (process.env.NODE_ENV === "development") {
+  api.use(morgan("dev"));
+}
 
 api.use(express.json());
 

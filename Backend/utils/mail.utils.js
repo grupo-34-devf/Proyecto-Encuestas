@@ -1,21 +1,14 @@
 import nodemailer from "nodemailer";
+import config from "../config.js";
 
-const transport = nodemailer.createTransport({
-  host: "smtp.mailersend.net",
-  port: 587,
-  secure: false,
-  auth: {
-    user: "MS_0bbSxN@trial-v69oxl507r2g785k.mlsender.net",
-    pass: "mssp.vBRuGgZ.0r83ql3jmwzgzw1j.OXpFX78",
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+const transportConfig =
+  process.env.NODE_ENV === "test" ? config.emailTest : config.email;
+
+const transport = nodemailer.createTransport(transportConfig);
 
 export const sendMail = async ({ from, to, subject, html }) => {
   const mailOptions = {
-    from: `MS_0bbSxN@trial-v69oxl507r2g785k.mlsender.net`, // sender address
+    from: config.email.user, // sender address
     to, // list of receivers
     subject, // Subject line
     html, // html body
