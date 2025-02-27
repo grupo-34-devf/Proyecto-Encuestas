@@ -1,0 +1,11 @@
+{
+    "app": {
+        "name": "APP Encuestas"
+    },
+    "nav": {
+        "avatarMenu": {
+            "profile": "Mi perfil",
+            "signout": "Cerrar sesión"
+        }
+    }
+}

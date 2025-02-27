@@ -18,9 +18,13 @@ import { profile } from "../services/auth";
 
 import { Link } from "react-router";
 
+import { useTranslation } from "react-i18next";
+
 const pages = ["TODO1", "TODO2", "TODO3"];
 
 const NavBar = () => {
+  const { t } = useTranslation();
+
   const { token, logout } = useAuth();
 
   const [user, setUser] = useState(null);
@@ -190,11 +194,13 @@ const NavBar = () => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleProfile}>
-                  <Typography sx={{ textAlign: "center" }}>Perfil</Typography>
+                  <Typography sx={{ textAlign: "center" }}>
+                    {t("nav.avatarMenu.profile")}
+                  </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                   <Typography sx={{ textAlign: "center" }}>
-                    Cerrar Sesión
+                    {t("nav.avatarMenu.signout")}
                   </Typography>
                 </MenuItem>
               </Menu>

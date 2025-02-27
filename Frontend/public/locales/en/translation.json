@@ -1,0 +1,11 @@
+{
+    "app": {
+        "name": "Surveys APP"
+    },
+    "nav": {
+        "avatarMenu": {
+            "profile": "My profile",
+            "signout": "Sign out"
+        }
+    }
+}

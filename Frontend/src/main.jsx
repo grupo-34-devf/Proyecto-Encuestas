@@ -6,6 +6,8 @@ import { BrowserRouter } from "react-router";
 import CssBaseline from "@mui/material/CssBaseline";
 import "@fontsource/roboto/300.css";
 
+import "./i18n.js";
+
 import { createTheme, ThemeProvider } from "@mui/material";
 import { AlertProvider } from "./context/AlertContext.jsx";
 
