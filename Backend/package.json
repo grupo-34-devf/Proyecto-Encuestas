@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js -o"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
   "author": "",
