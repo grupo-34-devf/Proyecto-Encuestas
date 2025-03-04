@@ -27,6 +27,8 @@ const config = {
   },
 };
 
-console.log(config);
+if (process.env.NODE_ENV === "development") {
+  console.log(config);
+}
 
 export default config;

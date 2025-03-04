@@ -27,7 +27,7 @@ describe("Auth Routes", () => {
       firstName: "FirstName Test",
       lastName: "LastName Test",
       birthday: "2001-03-18",
-      email: "xedene8313@codverts.com",
+      email: "test@test.com",
       password: "123123",
       gender: "Test",
     });
@@ -56,7 +56,7 @@ describe("Auth Routes", () => {
       firstName: "FirstName Test",
       lastName: "LastName Test",
       birthday: "2001-03-18",
-      email: "xedene8313@codverts.com",
+      email: "test@test.com",
       password: "123123",
       gender: "Test",
     });
@@ -68,7 +68,7 @@ describe("Auth Routes", () => {
       firstName: "FirstName Test",
       lastName: "LastName Test",
       birthday: "2001-03-18",
-      email: "xedene8313@codverts.com",
+      email: "test@test.com",
       password: "123123",
       gender: "Test",
     });
