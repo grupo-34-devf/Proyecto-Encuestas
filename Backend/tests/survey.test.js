@@ -1,5 +1,10 @@
+import supertest from "supertest";
+import api from "../api.js";
+
 describe("Esto es un test", () => {
-  test("Test 1", () => {
-    expect(2).toBe(2);
+  test("/surveys", async () => {
+    const response = await supertest(api).get("/surveys");
+
+    expect(response.statusCode).toBe(200);
   });
 });

@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
-import authRouter from "./routes/auth.routes.js";
 import morgan from "morgan";
+
+import authRouter from "./routes/auth.routes.js";
+import surveyRouter from "./routes/survery.routes.js";
 
 console.log("ENVIRONMENT", process.env.NODE_ENV);
 
@@ -27,5 +29,6 @@ api.get("/", (req, res) => {
 
 //Acá van a registrar todas las rutas
 api.use("/auth", authRouter);
+api.use("/surveys", surveyRouter);
 
 export default api;
