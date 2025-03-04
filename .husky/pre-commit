@@ -1,1 +1,2 @@
-echo "Hola Mundo!"
+cd Backend
+npm test
