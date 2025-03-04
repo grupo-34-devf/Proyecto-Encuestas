@@ -21,6 +21,7 @@ const register = async ({
   } catch (error) {
     console.error(error);
     console.error("Error al hacer register");
+    throw error;
   }
 };
 

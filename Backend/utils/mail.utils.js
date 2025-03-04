@@ -8,7 +8,7 @@ const transport = nodemailer.createTransport(transportConfig);
 
 export const sendMail = async ({ from, to, subject, html }) => {
   const mailOptions = {
-    from: config.email.user, // sender address
+    from: config.email.auth.user, // sender address
     to, // list of receivers
     subject, // Subject line
     html, // html body

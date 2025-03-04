@@ -212,10 +212,16 @@ const NavBar = () => {
                 to="/login"
                 variant="contained"
                 sx={{ marginRight: "10px" }}
+                data-cy="loginButton"
               >
                 Login
               </Button>
-              <Button component={Link} to="/register" variant="outlined">
+              <Button
+                component={Link}
+                to="/register"
+                variant="outlined"
+                data-cy="registerButton"
+              >
                 Register
               </Button>
             </>

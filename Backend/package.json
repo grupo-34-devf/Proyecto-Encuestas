@@ -4,7 +4,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "set NODE_ENV=development && nodemon server.js",
+    "dev:cypress": "set NODE_ENV=test && nodemon server.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],

@@ -15,8 +15,13 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 
 import { useState } from "react";
 import { register } from "../services/auth";
+import { useAlert } from "../context/AlertContext";
 
 const Register = () => {
+  const { showAlert } = useAlert();
+
+  const [loadingButton, setLoadingButton] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -51,7 +56,17 @@ const Register = () => {
     e.preventDefault();
 
     const registerUser = async () => {
-      await register(formData);
+      try {
+        setLoadingButton(true);
+        await register(formData);
+        showAlert("Usuario registrado satisfactoriamente", "success");
+      } catch (error) {
+        console.log(error);
+
+        showAlert("Error al registrar nuevo usuario", "error");
+      } finally {
+        setLoadingButton(false);
+      }
     };
 
     registerUser();
@@ -79,6 +94,8 @@ const Register = () => {
           onChange={handleChange}
           value={formData.firstName}
           name="firstName"
+          data-cy="firstNameInput"
+          disabled={loadingButton}
         />
         <TextField
           required
@@ -87,6 +104,8 @@ const Register = () => {
           onChange={handleChange}
           value={formData.lastName}
           name="lastName"
+          data-cy="lastNameInput"
+          disabled={loadingButton}
         />
         <FormControl>
           <InputLabel htmlFor="outlined-adornment-birthday">
@@ -99,6 +118,8 @@ const Register = () => {
             onChange={handleChange}
             value={formData.birthday}
             name="birthday"
+            data-cy="birthdayInput"
+            disabled={loadingButton}
           />
         </FormControl>
         <TextField
@@ -108,6 +129,8 @@ const Register = () => {
           onChange={handleChange}
           value={formData.email}
           name="email"
+          data-cy="emailInput"
+          disabled={loadingButton}
         />
 
         <FormControl variant="outlined">
@@ -120,6 +143,8 @@ const Register = () => {
             onChange={handleChange}
             value={formData.password}
             name="password"
+            data-cy="passwordInput"
+            disabled={loadingButton}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -146,8 +171,16 @@ const Register = () => {
           onChange={handleChange}
           value={formData.gender}
           name="gender"
+          data-cy="genderInput"
+          disabled={loadingButton}
         />
-        <Button type="submit" variant="contained" onClick={handleRegister}>
+        <Button
+          type="submit"
+          variant="contained"
+          data-cy="registerSubmitButton"
+          onClick={handleRegister}
+          loading={loadingButton}
+        >
           Registrarme
         </Button>
       </Paper>
